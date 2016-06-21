@@ -51,6 +51,10 @@ return the current branch; optional `filePath` parameter can be used to run the 
 
 return the current tag and mark as dirty if markDirty is truthful; this method will fail if the `git` command is not found in your `PATH`
 
+#### `git.tagOrHash()` &rarr; &lt;String&gt;
+
+return the result of `git describe --tags --abbrev=40`; this method will fail if the `git` command is not found in your `PATH`
+
 #### `git.message()` &rarr; &lt;String&gt;
 
 return the current commit message; this method will fail if the `git` command is not found in your `PATH`
