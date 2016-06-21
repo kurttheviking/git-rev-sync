@@ -114,6 +114,10 @@ function tag(markDirty) {
   return _command('git', ['describe', '--always', '--tag', '--abbrev=0']);
 }
 
+function tagOrHash() {
+  return _command('git', ['describe', '--tags', '--abbrev=40']);
+}
+
 function count() {
   return parseInt(_command('git', ['rev-list', '--all', '--count']), 10);
 }
@@ -129,5 +133,6 @@ module.exports = {
   long : long,
   message : message,
   short : short,
-  tag : tag
+  tag : tag,
+  tagOrHash : tagOrHash,
 };
