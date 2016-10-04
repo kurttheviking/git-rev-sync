@@ -91,7 +91,7 @@ function long(dir) {
     // looking up the hash here.
     var refToFind = ['refs', 'heads', b].join('/');
     var packfileContents = fs.readFileSync(path.resolve(gitDir, 'packed-refs'), 'utf8');
-    var packfileRegex = new RegExp('(.*) ' + refToFind);
+    var packfileRegex = new RegExp('(.*) ' + escapeRegex(refToFind));
     ref = packfileRegex.exec(packfileContents)[1];
   }
 
@@ -120,6 +120,13 @@ function count() {
 
 function log() {
   throw new Error('not implemented');
+}
+
+function escapeRegex(string) {
+  // the following Regex will match reserved Regex symbols
+  var regexToEscape = /[|\\{}()[\]^$+*?.]/g;
+
+  return string.replace(regexToEscape, '\\$&');
 }
 
 module.exports = {
