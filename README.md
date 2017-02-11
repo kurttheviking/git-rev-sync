@@ -55,6 +55,10 @@ return the current tag and mark as dirty if markDirty is truthful; this method w
 
 return the result of `git describe --tags --abbrev=40`; this method will fail if the `git` command is not found in your `PATH`
 
+#### `git.isTagDirty()` &rarr; &lt;Boolean&gt;
+
+returns true if the current tag is dirty; this method will fail if the `git` command is not found in your `PATH`
+
 #### `git.message()` &rarr; &lt;String&gt;
 
 return the current commit message; this method will fail if the `git` command is not found in your `PATH`

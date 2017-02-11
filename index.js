@@ -16,7 +16,7 @@ function _command(cmd, args) {
     result = childProcess.spawnSync(cmd, args);
 
     if (result.status !== 0) {
-      throw new Error('[git-rev-sync] failed to execute command: ' + result.error.code);
+      throw new Error('[git-rev-sync] failed to execute command: ' + result.stderr);
     }
 
     return result.stdout.toString('utf8').replace(/^\s+|\s+$/g, '');
@@ -25,10 +25,10 @@ function _command(cmd, args) {
   result = shell.exec(cmd + ' ' + args.join(' '), {silent: true});
 
   if (result.code !== 0) {
-    throw new Error('[git-rev-sync] failed to execute command: ' + result.output);
+    throw new Error('[git-rev-sync] failed to execute command: ' + result.stdout);
   }
 
-  return result.output.toString('utf8').replace(/^\s+|\s+$/g, '');
+  return result.stdout.toString('utf8').replace(/^\s+|\s+$/g, '');
 }
 
 function _getGitDirectory(start) {
@@ -49,6 +49,11 @@ function _getGitDirectory(start) {
   testPath = path.resolve(testPath, '.git');
 
   if (fs.existsSync(testPath)) {
+    if (!fs.statSync(testPath).isDirectory()) {
+      var parentRepoPath = fs.readFileSync(testPath, 'utf8').substring(8).trim();
+      return path.resolve(parentRepoPath);
+    }
+    
     return testPath;
   }
 
@@ -59,7 +64,7 @@ function _getGitDirectory(start) {
 
 function branch(dir) {
   var gitDir = _getGitDirectory(dir);
-
+  
   var head = fs.readFileSync(path.resolve(gitDir, 'HEAD'), 'utf8');
   var b = head.match(RE_BRANCH);
 
@@ -89,7 +94,7 @@ function long(dir) {
     // If there isn't an entry in /refs/heads for this branch, it may be that
     // the ref is stored in the packfile (.git/packed-refs). Fall back to
     // looking up the hash here.
-    var refToFind = path.join('refs', 'heads', b);
+    var refToFind = ['refs', 'heads', b].join('/');
     var packfileContents = fs.readFileSync(path.resolve(gitDir, 'packed-refs'), 'utf8');
     var packfileRegex = new RegExp('(.*) ' + refToFind);
     ref = packfileRegex.exec(packfileContents)[1];
@@ -114,8 +119,22 @@ function tag(markDirty) {
   return _command('git', ['describe', '--always', '--tag', '--abbrev=0']);
 }
 
+
 function tagOrHash() {
   return _command('git', ['describe', '--tags', '--abbrev=40']);
+}
+
+function isTagDirty() {
+  try {
+    _command('git', ['describe', '--exact-match', '--tags']);
+  } catch (e) {
+    if (e.message.indexOf('no tag exactly matches')) {
+      return true;
+    }
+
+    throw e;
+  }
+  return false;
 }
 
 function count() {
@@ -135,4 +154,5 @@ module.exports = {
   short : short,
   tag : tag,
   tagOrHash : tagOrHash,
+  isTagDirty: isTagDirty
 };

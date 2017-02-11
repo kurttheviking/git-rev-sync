@@ -1,6 +1,6 @@
 {
   "name": "git-rev-sync",
-  "version": "1.6.0",
+  "version": "1.8.0",
   "author": "kurttheviking",
   "bugs": {
     "url": "https://github.com/kurttheviking/git-rev-sync/issues"
@@ -22,17 +22,29 @@
       "url": "https://github.com/tblobaum"
     },
     {
+      "name": "henrikra",
+      "url": "https://github.com/henrikra"
+    },
+    {
+      "name": "Jan Nicklas",
+      "url": "https://github.com/jantimon"
+    },
+    {
       "name": "Hendrik Reker",
       "email": "reker.opensource@gmail.com",
       "url": "https://github.com/reker-"
     },
     {
-      "name": "fugwenna",
+      "name": "Kevin Yanuk",
       "url": "https://github.com/fugwenna"
     },
     {
-      "name": "LorenzGardner",
+      "name": "Lorenz Gardner",
       "url": "https://github.com/LorenzGardner"
+    },
+    {
+      "name": "Colton Clemmer",
+      "url": "https://github.com/orbweaver-"
     }
   ],
   "description": "Synchronously get the current git commit hash, tag, or branch",
@@ -49,8 +61,8 @@
     "url": "git@github.com:kurttheviking/git-rev-sync.git"
   },
   "dependencies": {
-    "graceful-fs": "4.1.3",
-    "shelljs": "0.6.0"
+    "graceful-fs": "4.1.6",
+    "shelljs": "0.7.4"
   },
   "devDependencies": {}
 }

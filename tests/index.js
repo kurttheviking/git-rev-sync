@@ -25,4 +25,7 @@ result = git.count();
 assert.notEqual(result, 0, 'count() returns a non-zero number');
 assert.equal(Math.abs(result), result, 'count() returns a positive number');
 
+result = git.isTagDirty();
+assert.equal(typeof result, 'boolean', 'isTagDirty() returns a boolean');
+
 console.log('tests passed');
