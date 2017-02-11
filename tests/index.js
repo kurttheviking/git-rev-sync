@@ -18,6 +18,9 @@ assert.equal(!!result.length, true, 'message() returns a string with non-zero le
 result = git.tag();
 assert.equal(!!result.length, true, 'tag() returns a string with non-zero length');
 
+result = git.tagOrHash();
+assert.equal(!!result.length, true, 'tagOrHash() returns a string with non-zero length');
+
 result = git.count();
 assert.notEqual(result, 0, 'count() returns a non-zero number');
 assert.equal(Math.abs(result), result, 'count() returns a positive number');

@@ -119,6 +119,11 @@ function tag(markDirty) {
   return _command('git', ['describe', '--always', '--tag', '--abbrev=0']);
 }
 
+
+function tagOrHash() {
+  return _command('git', ['describe', '--tags', '--abbrev=40']);
+}
+
 function isTagDirty() {
   try {
     _command('git', ['describe', '--exact-match', '--tags']);
@@ -148,5 +153,6 @@ module.exports = {
   message : message,
   short : short,
   tag : tag,
+  tagOrHash : tagOrHash,
   isTagDirty: isTagDirty
 };
