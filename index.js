@@ -140,9 +140,15 @@ function log() {
   throw new Error('not implemented');
 }
 
+function date() {
+  //not sure if this should handle optional arguments (for branch / commit hash / date format?)
+  return _command('git', ['show', '-s', '--format=%ci']);
+}
+
 module.exports = {
   branch : branch,
   count: count,
+  date: date,
   log : log,
   long : long,
   message : message,
