@@ -63,6 +63,10 @@ return the current commit message; this method will fail if the `git` command is
 
 return the count of commits across all branches; this method will fail if the `git` command is not found in your `PATH`
 
+#### `git.date()` &rarr; &lt;Number&gt;
+
+returns the date of the last commit; this method will fail if the `git` command is not found in your `PATH`
+
 
 ## License
 
