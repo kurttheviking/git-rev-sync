@@ -65,6 +65,10 @@ return the current commit message; this method will fail if the `git` command is
 
 return the current tag and mark as dirty if markDirty is truthful; this method will fail if the `git` command is not found in `PATH`
 
+#### `git.date()` &rarr; &lt;Number&gt;
+
+returns the date of the last commit; this method will fail if the `git` command is not found in your `PATH`
+
 
 ## License
 
