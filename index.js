@@ -14,7 +14,7 @@ function _command(cmd, args, { cwd }) {
   var result;
 
   if (HAS_NATIVE_EXECSYNC) {
-    result = childProcess.spawnSync(cmd, args, { cwd });
+    result = childProcess.spawnSync(cmd, args, { cwd } = {});
 
     if (result.status !== 0) {
       throw new Error('[git-rev-sync] failed to execute command: ' + result.stderr);
