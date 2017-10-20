@@ -10,11 +10,11 @@ var HAS_NATIVE_EXECSYNC = childProcess.hasOwnProperty('spawnSync');
 var PATH_SEP = path.sep;
 var RE_BRANCH = /^ref: refs\/heads\/(.*)\n/;
 
-function _command(cmd, args, { cwd }) {
+function _command(cmd, args, { cwd } = {}) {
   var result;
 
   if (HAS_NATIVE_EXECSYNC) {
-    result = childProcess.spawnSync(cmd, args, { cwd } = {});
+    result = childProcess.spawnSync(cmd, args, { cwd });
 
     if (result.status !== 0) {
       throw new Error('[git-rev-sync] failed to execute command: ' + result.stderr);
