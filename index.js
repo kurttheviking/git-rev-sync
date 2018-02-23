@@ -40,8 +40,8 @@ function _getGitDirectory(start) {
   if (typeof start === 'string') {
     start = start.split(PATH_SEP);
   }
-
-  var testPath = start.join(PATH_SEP);
+  var gitRepoPath = start.join(PATH_SEP);
+  var testPath = gitRepoPath;
 
   if (!testPath.length) {
     throw new Error('[git-rev-sync] no git repository found');
@@ -53,15 +53,12 @@ function _getGitDirectory(start) {
     if (!fs.statSync(testPath).isDirectory()) {
       var parentRepoPath = fs.readFileSync(testPath, 'utf8').trim().split(' ').pop();
 
-      if (fs.existsSync(parentRepoPath)) {
-        return path.resolve(parentRepoPath);
+      if (!path.isAbsolute(parentRepoPath)) {
+        parentRepoPath = path.resolve(gitRepoPath, parentRepoPath);
       }
 
-      var submoduleName = parentRepoPath.split('/').pop();
-      var submodulePath = '../.git/modules/' + submoduleName;
-
-      if (fs.existsSync(submodulePath)) {
-        return path.resolve(submodulePath);
+      if (fs.existsSync(parentRepoPath)) {
+        return path.resolve(parentRepoPath);
       }
 
       throw new Error('[git-rev-sync] could not find repository from path' + parentRepoPath);
