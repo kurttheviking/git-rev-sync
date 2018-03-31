@@ -114,8 +114,8 @@ function long(dir) {
   return ref.trim();
 }
 
-function short(dir) {
-  return long(dir).substr(0, 7);
+function short(dir, len) {
+  return long(dir).substr(0, len || 7);
 }
 
 function message() {
