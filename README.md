@@ -53,6 +53,10 @@ return the count of commits across all branches; this method will fail if the `g
 
 returns the date of the current commit; this method will fail if the `git` command is not found in `PATH`
 
+#### `git.isDirty()` &rarr; &lt;Boolean&gt;
+
+returns true if there are uncommitted changes; this method will fail if the `git` command is not found in `PATH`
+
 #### `git.isTagDirty()` &rarr; &lt;Boolean&gt;
 
 returns true if the current tag is dirty; this method will fail if the `git` command is not found in `PATH`
@@ -78,4 +82,3 @@ return the current tag and mark as dirty if markDirty is truthful; this method w
 ## Donations
 
 [We're all in this together](https://cash.me/$kurttheviking)
-

@@ -19,6 +19,9 @@ assert.equal(Math.abs(result), result, 'count() returns a positive number');
 result = git.date();
 assert.equal(result instanceof Date, true, 'date() returns a date');
 
+result = git.isDirty();
+assert.equal(typeof result, 'boolean', 'isDirty() returns a boolean');
+
 result = git.isTagDirty();
 assert.equal(typeof result, 'boolean', 'isTagDirty() returns a boolean');
 
