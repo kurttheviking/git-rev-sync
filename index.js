@@ -17,7 +17,7 @@ function _command(cmd, args) {
     result = childProcess.spawnSync(cmd, args);
 
     if (result.status !== 0) {
-      throw new Error('[git-rev-sync] failed to execute command: ' + result.stderr);
+      throw new Error('[git-rev-sync] failed to execute command: ' + result.stderr + '/' + result.error);
     }
 
     return result.stdout.toString('utf8').replace(/^\s+|\s+$/g, '');
