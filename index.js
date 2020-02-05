@@ -9,6 +9,7 @@ var shell = require('shelljs');
 var HAS_NATIVE_EXECSYNC = childProcess.hasOwnProperty('spawnSync');
 var PATH_SEP = path.sep;
 var RE_BRANCH = /^ref: refs\/heads\/(.*)\n/;
+var RE_WORKTREES = new RegExp('\.git\\' + PATH_SEP + 'worktrees\\' + PATH_SEP + '.+$');
 
 function _command(cmd, args) {
   var result;
@@ -93,9 +94,7 @@ function long(dir) {
   }
 
   var gitDir = _getGitDirectory(dir);
-  var gitRootDir = gitDir.indexOf('.git/worktrees/') > 0 ?
-    gitDir.replace(/\.git\/worktrees\/.+$/, '.git') :
-    gitDir;
+  var gitRootDir = gitDir.replace(RE_WORKTREES, '.git');
   var refsFilePath = path.resolve(gitRootDir, 'refs', 'heads', b);
   var ref;
 
@@ -106,7 +105,7 @@ function long(dir) {
     // the ref is stored in the packfile (.git/packed-refs). Fall back to
     // looking up the hash here.
     var refToFind = ['refs', 'heads', b].join('/');
-    var packfileContents = fs.readFileSync(path.resolve(gitDir, 'packed-refs'), 'utf8');
+    var packfileContents = fs.readFileSync(path.resolve(gitRootDir, 'packed-refs'), 'utf8');
     var packfileRegex = new RegExp('(.*) ' + escapeStringRegexp(refToFind));
     ref = packfileRegex.exec(packfileContents)[1];
   }
