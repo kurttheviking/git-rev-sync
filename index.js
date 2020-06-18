@@ -176,6 +176,10 @@ function log() {
   throw new Error('not implemented');
 }
 
+function author() {
+  return _command('git', ['log', '-1', '--pretty="%an <%ae>"']);
+}
+
 function printInfo() {
   var info = {
     branch : branch(),
@@ -189,7 +193,8 @@ function printInfo() {
     remoteUrl: remoteUrl(),
     short: short(),
     tag: tag(),
-    tagFirstParent: tagFirstParent()
+    tagFirstParent: tagFirstParent(),
+    author: author()
   }
   return info
 }
@@ -207,5 +212,6 @@ module.exports = {
   short: short,
   tag: tag,
   tagFirstParent: tagFirstParent,
+  author: author,
   printInfo: printInfo
 };
