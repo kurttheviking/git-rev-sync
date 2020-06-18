@@ -176,6 +176,23 @@ function log() {
   throw new Error('not implemented');
 }
 
+function printInfo() {
+  var info = {
+    branch : branch(),
+    count: count(),
+    date: date(),
+    hasUnstagedChanges: hasUnstagedChanges(),
+    isDirty: isDirty(),
+    isTagDirty: isTagDirty(),
+    long: long(),
+    message: message(),
+    remoteUrl: remoteUrl(),
+    short: short(),
+    tag: tag(),
+    tagFirstParent: tagFirstParent()
+  }
+  return info
+}
 module.exports = {
   branch : branch,
   count: count,
@@ -189,5 +206,6 @@ module.exports = {
   remoteUrl: remoteUrl,
   short: short,
   tag: tag,
-  tagFirstParent: tagFirstParent
+  tagFirstParent: tagFirstParent,
+  printInfo: printInfo
 };
