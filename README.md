@@ -60,7 +60,7 @@ returns the date of the current commit; this method will fail if the `git` comma
 
 returns true if there are unstaged changes; this method will fail if the `git` command is not found in `PATH`
 
-#### `git.isDrty()` &rarr; &lt;Boolean&gt;
+#### `git.isDirty()` &rarr; &lt;Boolean&gt;
 
 returns true if there are uncommitted changes; this method will fail if the `git` command is not found in `PATH`
 
