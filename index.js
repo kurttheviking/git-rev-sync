@@ -10,11 +10,11 @@ var HAS_NATIVE_EXECSYNC = childProcess.hasOwnProperty('spawnSync');
 var PATH_SEP = path.sep;
 var RE_BRANCH = /^ref: refs\/heads\/(.*)\n/;
 
-function _command(cmd, args) {
+function _command(cmd, args, { cwd } = {}) {
   var result;
 
   if (HAS_NATIVE_EXECSYNC) {
-    result = childProcess.spawnSync(cmd, args);
+    result = childProcess.spawnSync(cmd, args, { cwd });
 
     if (result.status !== 0) {
       throw new Error('[git-rev-sync] failed to execute command: ' + result.stderr + '/' + result.error);
@@ -122,12 +122,12 @@ function message() {
   return _command('git', ['log', '-1', '--pretty=%B']);
 }
 
-function tag(markDirty) {
+function tag(markDirty, dir) {
   if (markDirty) {
-    return _command('git', ['describe', '--always', '--tag', '--dirty', '--abbrev=0']);
+    return _command('git', ['describe', '--always', '--tag', '--dirty', '--abbrev=0'], { cwd: dir });
   }
 
-  return _command('git', ['describe', '--always', '--tag', '--abbrev=0']);
+  return _command('git', ['describe', '--always', '--tag', '--abbrev=0'], { cwd: dir });
 }
 
 function tagFirstParent(markDirty) {
