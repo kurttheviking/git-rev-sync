@@ -9,6 +9,9 @@ assert.equal(result.length > 3, true, 'short() returns string of length 4+');
 result = git.short(null, 8);
 assert.equal(result.length === 8, true, 'short() returns string of length 4+');
 
+result = git.short(10);
+assert.equal(result.length === 10, true, 'short() returns string of length 10');
+
 result = git.long();
 assert.equal(result.length > 38, true, 'long() returns string of length 39+');
 
