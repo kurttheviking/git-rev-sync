@@ -115,6 +115,10 @@ function long(dir) {
 }
 
 function short(dir, len) {
+  if(Number.isInteger(dir)) {
+    return long(undefined).substr(0, dir);
+  }
+
   return long(dir).substr(0, len || 7);
 }
 
